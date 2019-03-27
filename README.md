@@ -1,4 +1,4 @@
-# Scaffold Component README
+# Scaffold React Component
 
 This VSCode extension is an oppinionated way to scaffold new React Components.
 
@@ -9,7 +9,7 @@ After installation, right-clicking on a folder in the Explorer View will give yo
 - New Class Component
 - New Functional Component
 
-It expects that the component name in PascalCase
+It expects that the component name is PascalCase
 
 `MyNewComponent`
 
@@ -30,17 +30,19 @@ my-new-component
 
 This extension contributes the following settings:
 
-* `scaffoldreactcomponent.stringToReplace`: Use a custom string to inject the Component Name into the files. Default is XXXXXX.
-* `scaffoldreactcomponent.pathToTemplates`: If you copy & modify the templates, add the path to your custom templates here.
+* `scaffoldreactcomponent.stringToReplace`: Use a custom string to inject the Component Name into the template files. Default is XXXXXX.
+* `scaffoldreactcomponent.pathToTemplates`: If you copy & modify the templates, add the path to your custom template folder.
 
 ### IMPORTANT
 
 If you use custom templates, note that all four files should be present in your new directory.
 Any instances of `stringToReplace` will be replaced with the new component name.
 
-## Template File Nameing & Structure
+## Template File Naming & Structure
 
-`template-index.js`
+The default templates assume you are using React, Material-UI, and PropTypes.
+
+### template-index.js
 
 ```
 import _ from './XXXXXX'
@@ -48,13 +50,13 @@ import _ from './XXXXXX'
 export default _
 ```
 
-`template-component-test.js`
+### template-component-test.js
 
 ```
 [ empty ]
 ```
 
-`template-class-component.js`
+### template-class-component.js
 
 ```
 import React from 'react'
@@ -85,7 +87,7 @@ XXXXXX.propTypes = {
 export default XXXXXX
 ```
 
-`template-functional-component.js`
+### template-functional-component.js
 
 ```
 import React from 'react'
