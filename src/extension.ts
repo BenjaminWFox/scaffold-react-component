@@ -1,0 +1,178 @@
+// The module 'vscode' contains the VS Code extensibility API
+// Import the module and reference it with the alias vscode in your code below
+import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as path from 'path';
+import {
+	workspace as Workspace
+} from 'vscode';
+
+const TEST_FILE_NAME = 'template-component-test.js';
+const FUNCTIONAL_COMPONENT_FILE_NAME = 'template-functional-component.js';
+const CLASS_COMPONENT_FILE_NAME = 'template-class-component.js';
+const INDEX_FILE_NAME = 'template-index.js';
+const STUB_COMPONENT_NAME = 'XXXXXX';
+
+interface ConfigObject {
+	stringToReplace: string;
+	pathToTemplates: string;
+}
+
+const getConfig = function getConfig(): ConfigObject {
+	const config = Workspace.getConfiguration('scaffoldreactcomponent', null);
+
+	return {
+		stringToReplace: config.get('stringToReplace', ''),
+		pathToTemplates: config.get('pathToTemplates', ''),
+	};
+};
+
+const makeDirSync = function makeDirSync(dir: string): boolean {
+	if (fs.existsSync(dir)) {
+		return false;
+	}
+	if (!fs.existsSync(path.dirname(dir))) {
+			makeDirSync(path.dirname(dir));
+	}
+
+	fs.mkdirSync(dir);
+
+	console.log('Made new directory at:', dir);
+	return true;
+};
+
+const copyTestFileSync = function copyTestFileSync(copyPath: string, fileName: string, componentName: string, stringToReplace: string): void {	
+	const testFile = path.resolve(__dirname, TEST_FILE_NAME);
+	const newFileName = path.resolve(copyPath, `${fileName}.test.js`);
+
+	fs.readFile(testFile, 'utf8', function (err, data) {
+		if (err) {
+			return console.log(err);
+		}
+		var result = data.replace(new RegExp(stringToReplace, 'g'), componentName);
+
+		fs.writeFile(newFileName, result, 'utf8', function (err) {
+			if (err) {
+				return console.log(err);
+			}
+		});
+	});
+
+	console.log('Copied test file to:', `${copyPath}/${componentName}.test.js`);
+};
+
+const copyIndexFileAsync = function copyIndexFileAsync(copyPath: string, componentFileName: string, stringToReplace: string): void {
+	const indexFile = path.resolve(__dirname, INDEX_FILE_NAME);
+	const newFileName = path.resolve(copyPath, 'index.js');
+
+	fs.readFile(indexFile, 'utf8', function (err, data) {
+		if (err) {
+			return console.log(err);
+		}
+		var result = data.replace(new RegExp(stringToReplace, 'g'), componentFileName);
+
+		fs.writeFile(newFileName, result, 'utf8', function (err) {
+			if (err) {
+				return console.log(err);
+			}
+		});
+	});
+
+	console.log('Copied index file to: ', newFileName);
+};
+
+const copyComponentFileAsnyc = function copyComponentFileAsnyc(templateFileName: string, copyPath: string, componentFileName: string, componentName: string, stringToReplace: string): void {
+	const componentTemplateFile = path.resolve(__dirname, templateFileName);
+	const newFileName = path.resolve(copyPath, `${componentFileName}.js`);
+
+	fs.readFile(componentTemplateFile, 'utf8', function (err, data) {
+		if (err) {
+			return console.log(err);
+		}
+		var result = data.replace(new RegExp(stringToReplace, 'g'), componentName);
+
+		fs.writeFile(newFileName, result, 'utf8', function (err) {
+			if (err) {
+				return console.log(err);
+			}
+		});
+	});
+
+	console.log('Copied component file to: ', newFileName);
+};
+
+const scaffoldNewComponent = async function scaffoldNewComponent(componentType: 'class' | 'functional', folderObject: any): Promise<{}> {
+	const config = getConfig();
+	const templatePath = config.pathToTemplates === '' ? path.resolve(__dirname) : config.pathToTemplates;
+	const stringToReplace = config.stringToReplace === '' ? STUB_COMPONENT_NAME : config.stringToReplace;
+	const falseValue =  new Promise(()=>false);
+	const trueValue = new Promise(()=>true);
+	const isClassComponent = componentType === 'class';
+	const folderBase = folderObject.fsPath || undefined;
+	const templateFile = path.resolve(templatePath, isClassComponent ? CLASS_COMPONENT_FILE_NAME : FUNCTIONAL_COMPONENT_FILE_NAME)
+
+	if (!folderBase) {
+		console.error('The folder path was undefined, cannot continue.');
+
+		return falseValue;
+	}
+	// Display a message box to the user
+	const componentName = await vscode.window.showInputBox();
+
+	if (!componentName || componentName === '') {
+		console.error('The component name was undefined, cannot continue.');
+
+		return falseValue;
+	}
+
+	const folderAndFileName = componentName.split(/(?=[A-Z0-9])/).join("-").toLowerCase();
+	const fullFolderPath = `${folderBase}/${folderAndFileName}`;
+	
+	// vscode.window.showInformationMessage('Scaffolding component...');
+	console.log('');
+	console.log(`Create ${componentType} component:`, componentName);
+	console.log('With file name:', folderAndFileName);
+	console.log('In folder:', fullFolderPath);
+	console.log('...');
+
+	makeDirSync(fullFolderPath);
+
+	copyTestFileSync(fullFolderPath, folderAndFileName, componentName, stringToReplace);
+
+	copyIndexFileAsync(fullFolderPath, folderAndFileName, stringToReplace);
+	
+	copyComponentFileAsnyc(templateFile, fullFolderPath, folderAndFileName, componentName, stringToReplace);
+
+	console.log('-- Done --');
+	console.log('');
+	
+	return trueValue;
+};
+
+export function activate(context: vscode.ExtensionContext) {
+
+	// Use the console to output diagnostic information (console.log) and errors (console.error)
+	// This line of code will only be executed once when your extension is activated
+		// console.log('Congratulations, your extension "helloworld" is now active!');
+
+	// The command has been defined in the package.json file
+	// Now provide the implementation of the command with registerCommand
+	// The commandId parameter must match the command field in package.json
+	let disposableFunctional = vscode.commands.registerCommand('extension.scaffoldFunctionalComponent', async (folderObject) => {
+		// The code you place here will be executed every time your command is executed
+		scaffoldNewComponent('functional', folderObject);
+	});
+
+	let disposableClass = vscode.commands.registerCommand('extension.scaffoldClassComponent', async (folderObject) => {
+		// The code you place here will be executed every time your command is executed
+		scaffoldNewComponent('class', folderObject);
+	});
+
+	context.subscriptions.push(disposableFunctional);
+	context.subscriptions.push(disposableClass);
+}
+
+
+
+// this method is called when your extension is deactivated
+export function deactivate() {}
