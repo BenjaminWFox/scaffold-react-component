@@ -86,7 +86,7 @@ const scaffoldNewComponent = async function scaffoldNewComponent(componentType: 
 	const trueValue = new Promise(()=>true);
 	const isClassComponent = componentType === 'class';
 	const folderBase = folderObject.fsPath || undefined;
-	const templateFile = path.resolve(templatePath, isClassComponent ? CLASS_COMPONENT_FILE_NAME : FUNCTIONAL_COMPONENT_FILE_NAME)
+	const templateFile = path.resolve(templatePath, isClassComponent ? CLASS_COMPONENT_FILE_NAME : FUNCTIONAL_COMPONENT_FILE_NAME);
 
 	if (!folderBase) {
 		console.error('The folder path was undefined, cannot continue.');

@@ -1,10 +1,10 @@
 # Scaffold React Component
 
-This VSCode extension is an oppinionated way to scaffold new React Components.
+This VSCode extension is an oppinionated way to scaffold new React components.
 
 ## To use
 
-After installation, right-clicking on a folder in the Explorer View will give you the option to make either a:
+After installation, right-clicking on a folder in the Explorer View will give you options for:
 
 - New Class Component
 - New Functional Component
@@ -20,10 +20,10 @@ For the folder & files, the PascalCase name will be transformed to lowercase wit
 The folder/file structure is
 
 ```
-my-new-component
-- index.js
-- my-new-component.js
-- my-new-component.test.js
+my-new-component            // parent folder
+- index.js                  // only for cleaner imports of the component elsewhere
+- my-new-component.js       // component
+- my-new-component.test.js  // for component tests
 ```
 
 ## Extension Settings
