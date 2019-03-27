@@ -7,11 +7,11 @@ const useStyles = makeStyles({
   },
 })
 
-const XXXXXX = function XXXXXX({ }) {
+const XXXXXX = function XXXXXX() {
   const classes = useStyles()
 
   return (
-    <div className={classes.root}></div>
+    <div className={classes.root}>content</div>
   )
 }
 

@@ -72,7 +72,5 @@
 		"@types/node": "^10.12.21",
 		"@types/mocha": "^2.2.42"
 	},
-	"dependencies": {
-		"fs-extra": "^7.0.1"
-	}
+	"dependencies": {}
 }

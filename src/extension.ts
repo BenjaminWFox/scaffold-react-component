@@ -3,9 +3,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import {
-	workspace as Workspace
-} from 'vscode';
 
 const TEST_FILE_NAME = 'template-component-test.js';
 const FUNCTIONAL_COMPONENT_FILE_NAME = 'template-functional-component.js';
@@ -19,7 +16,7 @@ interface ConfigObject {
 }
 
 const getConfig = function getConfig(): ConfigObject {
-	const config = Workspace.getConfiguration('scaffoldreactcomponent', null);
+	const config = vscode.workspace.getConfiguration('scaffoldreactcomponent', null);
 
 	return {
 		stringToReplace: config.get('stringToReplace', ''),
