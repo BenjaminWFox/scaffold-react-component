@@ -8,10 +8,9 @@ const TEST_FILE_NAME = 'template-component-test.js';
 const FUNCTIONAL_COMPONENT_FILE_NAME = 'template-functional-component.js';
 const CLASS_COMPONENT_FILE_NAME = 'template-class-component.js';
 const INDEX_FILE_NAME = 'template-index.js';
-const STUB_COMPONENT_NAME = 'XXXXXX';
+const STUB_COMPONENT_NAME = '__StubComponentName__';
 
 interface ConfigObject {
-	stringToReplace: string;
 	pathToTemplates: string;
 }
 
@@ -19,7 +18,6 @@ const getConfig = function getConfig(): ConfigObject {
 	const config = vscode.workspace.getConfiguration('scaffoldreactcomponent', null);
 
 	return {
-		stringToReplace: config.get('stringToReplace', ''),
 		pathToTemplates: config.get('pathToTemplates', ''),
 	};
 };
@@ -38,22 +36,26 @@ const makeDirSync = function makeDirSync(dir: string): boolean {
 	return true;
 };
 
-const copyTestFileSync = function copyTestFileSync(copyPath: string, fileName: string, componentName: string, stringToReplace: string): void {	
-	const testFile = path.resolve(__dirname, TEST_FILE_NAME);
-	const newFileName = path.resolve(copyPath, `${fileName}.test.js`);
-
-	fs.readFile(testFile, 'utf8', function (err, data) {
+const readReplaceWriteFileAsync = function readReplaceWriteFileAsync(templateFile: string, newFile: string, componentName: string, stringToReplace: string): void {
+	fs.readFile(templateFile, 'utf8', function (err, data) {
 		if (err) {
 			return console.log(err);
 		}
 		var result = data.replace(new RegExp(stringToReplace, 'g'), componentName);
 
-		fs.writeFile(newFileName, result, 'utf8', function (err) {
+		fs.writeFile(newFile, result, 'utf8', function (err) {
 			if (err) {
 				return console.log(err);
 			}
 		});
 	});
+};
+
+const copyTestFileSync = function copyTestFileSync(copyPath: string, fileName: string, componentName: string, stringToReplace: string): void {	
+	const testFile = path.resolve(__dirname, TEST_FILE_NAME);
+	const newFileName = path.resolve(copyPath, `${fileName}.test.js`);
+
+	readReplaceWriteFileAsync(testFile, newFileName, componentName, stringToReplace);
 
 	console.log('Copied test file to:', `${copyPath}/${componentName}.test.js`);
 };
@@ -62,18 +64,7 @@ const copyIndexFileAsync = function copyIndexFileAsync(copyPath: string, compone
 	const indexFile = path.resolve(__dirname, INDEX_FILE_NAME);
 	const newFileName = path.resolve(copyPath, 'index.js');
 
-	fs.readFile(indexFile, 'utf8', function (err, data) {
-		if (err) {
-			return console.log(err);
-		}
-		var result = data.replace(new RegExp(stringToReplace, 'g'), componentFileName);
-
-		fs.writeFile(newFileName, result, 'utf8', function (err) {
-			if (err) {
-				return console.log(err);
-			}
-		});
-	});
+	readReplaceWriteFileAsync(indexFile, newFileName, componentFileName, stringToReplace);
 
 	console.log('Copied index file to: ', newFileName);
 };
@@ -82,18 +73,7 @@ const copyComponentFileAsnyc = function copyComponentFileAsnyc(templateFileName:
 	const componentTemplateFile = path.resolve(__dirname, templateFileName);
 	const newFileName = path.resolve(copyPath, `${componentFileName}.js`);
 
-	fs.readFile(componentTemplateFile, 'utf8', function (err, data) {
-		if (err) {
-			return console.log(err);
-		}
-		var result = data.replace(new RegExp(stringToReplace, 'g'), componentName);
-
-		fs.writeFile(newFileName, result, 'utf8', function (err) {
-			if (err) {
-				return console.log(err);
-			}
-		});
-	});
+	readReplaceWriteFileAsync(componentTemplateFile, newFileName, componentName, stringToReplace);
 
 	console.log('Copied component file to: ', newFileName);
 };
@@ -101,7 +81,7 @@ const copyComponentFileAsnyc = function copyComponentFileAsnyc(templateFileName:
 const scaffoldNewComponent = async function scaffoldNewComponent(componentType: 'class' | 'functional', folderObject: any): Promise<{}> {
 	const config = getConfig();
 	const templatePath = config.pathToTemplates === '' ? path.resolve(__dirname) : config.pathToTemplates;
-	const stringToReplace = config.stringToReplace === '' ? STUB_COMPONENT_NAME : config.stringToReplace;
+	const stringToReplace = STUB_COMPONENT_NAME;
 	const falseValue =  new Promise(()=>false);
 	const trueValue = new Promise(()=>true);
 	const isClassComponent = componentType === 'class';

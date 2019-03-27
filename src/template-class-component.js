@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   },
 })
 
-class XXXXXX extends React.Component {
+class __StubComponentName__ extends React.Component {
   state = {
   }
 
@@ -20,7 +20,7 @@ class XXXXXX extends React.Component {
   }
 }
 
-XXXXXX.propTypes = {
+__StubComponentName__.propTypes = {
 }
 
-export default XXXXXX
+export default __StubComponentName__

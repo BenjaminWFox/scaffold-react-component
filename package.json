@@ -3,6 +3,8 @@
 	"displayName": "ScaffoldReactComponent",
 	"description": "",
 	"version": "0.0.1",
+	"publisher": "bfcode",
+	"repository": "https://github.com/BenjaminWFox/scaffold-react-component",
 	"engines": {
 		"vscode": "^1.32.0"
 	},
@@ -43,12 +45,6 @@
 			"type": "object",
 			"title": "Scaffold Component",
 			"properties": {
-				"scaffoldreactcomponent.stringToReplace": {
-					"scope": "resource",
-					"type": "string",
-					"default": "XXXXXX",
-					"description": "Specify a custom string that will be replaced with the component name. Default: XXXXXX"
-				},
 				"scaffoldreactcomponent.pathToTemplates": {
 					"scope": "resource",
 					"type": "string",

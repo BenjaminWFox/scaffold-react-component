@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   },
 })
 
-const XXXXXX = function XXXXXX() {
+const __StubComponentName__ = function __StubComponentName__() {
   const classes = useStyles()
 
   return (
@@ -15,7 +15,7 @@ const XXXXXX = function XXXXXX() {
   )
 }
 
-XXXXXX.propTypes = {
+__StubComponentName__.propTypes = {
 }
 
-export default XXXXXX
+export default __StubComponentName__
