@@ -40,7 +40,7 @@ Any instances of `stringToReplace` will be replaced with the new component name.
 
 ## Template File Naming & Structure
 
-The default templates assume you are using React, Material-UI, and PropTypes.
+The default templates assumes you are using React, Material-UI, and PropTypes. It also assumes a bit about your ESLint setup.
 
 ### template-index.js
 
