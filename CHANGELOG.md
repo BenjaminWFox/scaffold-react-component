@@ -1,9 +1,15 @@
 # Change Log
 
-All notable changes to the "Scaffold React Component" extension will be documented in this file.
+## 0.0.3
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+- Fixed incorrect use of hooks in class components.
 
-## [Unreleased]
+## 0.0.2
+
+- Updated component name stub.
+
+- Updated readme & logging output.
+
+## 0.0.1
 
 - Initial release
