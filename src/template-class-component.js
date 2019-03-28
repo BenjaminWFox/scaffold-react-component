@@ -1,18 +1,18 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { withStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types'
 
-const useStyles = makeStyles({
+const styles = {
   root: {
   },
-})
+}
 
 class __StubComponentName__ extends React.Component {
   state = {
   }
 
   render() {
-    const classes = useStyles()
+    const { classes } = this.props
 
     return (
       <div className={classes.root}>content</div>
@@ -21,6 +21,7 @@ class __StubComponentName__ extends React.Component {
 }
 
 __StubComponentName__.propTypes = {
+  classes: PropTypes.object.isRequired,
 }
 
-export default __StubComponentName__
+export default withStyles(styles)(__StubComponentName__)
