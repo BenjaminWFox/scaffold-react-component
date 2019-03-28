@@ -51,8 +51,8 @@ const readReplaceWriteFileAsync = function readReplaceWriteFileAsync(templateFil
 	});
 };
 
-const copyTestFileSync = function copyTestFileSync(copyPath: string, fileName: string, componentName: string, stringToReplace: string): void {	
-	const testFile = path.resolve(__dirname, TEST_FILE_NAME);
+const copyTestFileSync = function copyTestFileSync(templatePath: string, copyPath: string, fileName: string, componentName: string, stringToReplace: string): void {	
+	const testFile = path.resolve(templatePath, TEST_FILE_NAME);
 	const newFileName = path.resolve(copyPath, `${fileName}.test.js`);
 
 	readReplaceWriteFileAsync(testFile, newFileName, componentName, stringToReplace);
@@ -60,8 +60,8 @@ const copyTestFileSync = function copyTestFileSync(copyPath: string, fileName: s
 	console.log('Copied test file to:', `${copyPath}/${componentName}.test.js`);
 };
 
-const copyIndexFileAsync = function copyIndexFileAsync(copyPath: string, componentFileName: string, stringToReplace: string): void {
-	const indexFile = path.resolve(__dirname, INDEX_FILE_NAME);
+const copyIndexFileAsync = function copyIndexFileAsync(templatePath: string, copyPath: string, componentFileName: string, stringToReplace: string): void {
+	const indexFile = path.resolve(templatePath, INDEX_FILE_NAME);
 	const newFileName = path.resolve(copyPath, 'index.js');
 
 	readReplaceWriteFileAsync(indexFile, newFileName, componentFileName, stringToReplace);
@@ -80,15 +80,15 @@ const copyComponentFileAsnyc = function copyComponentFileAsnyc(templateFileName:
 
 const scaffoldNewComponent = async function scaffoldNewComponent(componentType: 'class' | 'functional', folderObject: any): Promise<{}> {
 	const config = getConfig();
-	const templatePath = config.pathToTemplates === '' ? path.resolve(__dirname) : config.pathToTemplates;
+	const templatePath = config.pathToTemplates === '' ? path.resolve(__dirname) : path.resolve(config.pathToTemplates);
 	const stringToReplace = STUB_COMPONENT_NAME;
 	const falseValue =  new Promise(()=>false);
 	const trueValue = new Promise(()=>true);
 	const isClassComponent = componentType === 'class';
-	const folderBase = folderObject.fsPath || undefined;
+	const newFolderBase = folderObject.fsPath || undefined;
 	const templateFile = path.resolve(templatePath, isClassComponent ? CLASS_COMPONENT_FILE_NAME : FUNCTIONAL_COMPONENT_FILE_NAME);
 
-	if (!folderBase) {
+	if (!newFolderBase) {
 		console.error('The folder path was undefined, cannot continue.');
 
 		return falseValue;
@@ -103,22 +103,22 @@ const scaffoldNewComponent = async function scaffoldNewComponent(componentType: 
 	}
 
 	const folderAndFileName = componentName.split(/(?=[A-Z0-9])/).join("-").toLowerCase();
-	const fullFolderPath = `${folderBase}/${folderAndFileName}`;
+	const fullNewFolderPath = `${newFolderBase}/${folderAndFileName}`;
 	
 	// vscode.window.showInformationMessage('Scaffolding component...');
 	console.log('');
 	console.log(`Create ${componentType} component:`, componentName);
 	console.log('With file name:', folderAndFileName);
-	console.log('In folder:', fullFolderPath);
+	console.log('In folder:', fullNewFolderPath);
 	console.log('...');
 
-	makeDirSync(fullFolderPath);
+	makeDirSync(fullNewFolderPath);
 
-	copyTestFileSync(fullFolderPath, folderAndFileName, componentName, stringToReplace);
+	copyTestFileSync(templatePath, fullNewFolderPath, folderAndFileName, componentName, stringToReplace);
 
-	copyIndexFileAsync(fullFolderPath, folderAndFileName, stringToReplace);
+	copyIndexFileAsync(templatePath, fullNewFolderPath, folderAndFileName, stringToReplace);
 	
-	copyComponentFileAsnyc(templateFile, fullFolderPath, folderAndFileName, componentName, stringToReplace);
+	copyComponentFileAsnyc(templateFile, fullNewFolderPath, folderAndFileName, componentName, stringToReplace);
 
 	console.log('-- Done --');
 	console.log('');

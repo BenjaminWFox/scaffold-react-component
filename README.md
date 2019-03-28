@@ -28,10 +28,9 @@ my-new-component            // parent folder
 
 ## Extension Settings
 
-This extension contributes the following settings:
+This extension has one setting for specifying a path to custom templates:
 
-* `scaffoldreactcomponent.stringToReplace`: Use a custom string to inject the Component Name into the template files. Default is XXXXXX.
-* `scaffoldreactcomponent.pathToTemplates`: If you copy & modify the templates, add the path to your custom template folder.
+* `scaffoldreactcomponent.pathToTemplates`: If you copy & modify the templates, add the path to your custom template folder here.
 
 ### IMPORTANT
 
