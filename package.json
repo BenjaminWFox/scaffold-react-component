@@ -43,13 +43,13 @@
 		},
 		"configuration": {
 			"type": "object",
-			"title": "Scaffold Component",
+			"title": "Scaffold React Component",
 			"properties": {
 				"scaffoldreactcomponent.pathToTemplates": {
 					"scope": "resource",
 					"type": "string",
 					"default": "",
-					"description": "A path to template files with custom content. All 4 files must be present and named correctly. Default: ''"
+					"description": "A path to custom template files. See README for details."
 				}
 			}
 		}

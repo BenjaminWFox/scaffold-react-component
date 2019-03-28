@@ -32,10 +32,9 @@ This extension has one setting for specifying a path to custom templates:
 
 * `scaffoldreactcomponent.pathToTemplates`: If you copy & modify the templates, add the path to your custom template folder here.
 
-### IMPORTANT
+Use `__StubComponentName__` in your custom templates in place of the intended component name. 
 
-If you use custom templates, note that all four files should be present in your new directory.
-Any instances of `stringToReplace` will be replaced with the new component name.
+In a custom template folder you may omit the index & test files if desired.
 
 ## Template File Naming & Structure
 

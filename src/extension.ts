@@ -37,27 +37,29 @@ const makeDirSync = function makeDirSync(dir: string): boolean {
 };
 
 const readReplaceWriteFileAsync = function readReplaceWriteFileAsync(templateFile: string, newFile: string, componentName: string, stringToReplace: string): void {
-	fs.readFile(templateFile, 'utf8', function (err, data) {
-		if (err) {
-			return console.log(err);
-		}
-		var result = data.replace(new RegExp(stringToReplace, 'g'), componentName);
-
-		fs.writeFile(newFile, result, 'utf8', function (err) {
+		fs.readFile(templateFile, 'utf8', function (err, data) {
+	
 			if (err) {
-				return console.log(err);
+				console.log('Could not read file:', err);
+				return false;
 			}
+	
+			var result = data.replace(new RegExp(stringToReplace, 'g'), componentName);
+	
+				fs.writeFile(newFile, result, 'utf8', function (err) {
+					if (err) {
+						console.log('Could not write file:', err);
+						return false;
+					}
+				});
 		});
-	});
 };
 
-const copyTestFileSync = function copyTestFileSync(templatePath: string, copyPath: string, fileName: string, componentName: string, stringToReplace: string): void {	
+const copyTestFileAsync = function copyTestFileAsync(templatePath: string, copyPath: string, fileName: string, componentName: string, stringToReplace: string): void {	
 	const testFile = path.resolve(templatePath, TEST_FILE_NAME);
 	const newFileName = path.resolve(copyPath, `${fileName}.test.js`);
 
 	readReplaceWriteFileAsync(testFile, newFileName, componentName, stringToReplace);
-
-	console.log('Copied test file to:', `${copyPath}/${componentName}.test.js`);
 };
 
 const copyIndexFileAsync = function copyIndexFileAsync(templatePath: string, copyPath: string, componentFileName: string, stringToReplace: string): void {
@@ -65,8 +67,6 @@ const copyIndexFileAsync = function copyIndexFileAsync(templatePath: string, cop
 	const newFileName = path.resolve(copyPath, 'index.js');
 
 	readReplaceWriteFileAsync(indexFile, newFileName, componentFileName, stringToReplace);
-
-	console.log('Copied index file to: ', newFileName);
 };
 
 const copyComponentFileAsnyc = function copyComponentFileAsnyc(templateFileName: string, copyPath: string, componentFileName: string, componentName: string, stringToReplace: string): void {
@@ -74,8 +74,6 @@ const copyComponentFileAsnyc = function copyComponentFileAsnyc(templateFileName:
 	const newFileName = path.resolve(copyPath, `${componentFileName}.js`);
 
 	readReplaceWriteFileAsync(componentTemplateFile, newFileName, componentName, stringToReplace);
-
-	console.log('Copied component file to: ', newFileName);
 };
 
 const scaffoldNewComponent = async function scaffoldNewComponent(componentType: 'class' | 'functional', folderObject: any): Promise<{}> {
@@ -110,19 +108,15 @@ const scaffoldNewComponent = async function scaffoldNewComponent(componentType: 
 	console.log(`Create ${componentType} component:`, componentName);
 	console.log('With file name:', folderAndFileName);
 	console.log('In folder:', fullNewFolderPath);
-	console.log('...');
 
 	makeDirSync(fullNewFolderPath);
 
-	copyTestFileSync(templatePath, fullNewFolderPath, folderAndFileName, componentName, stringToReplace);
+	copyTestFileAsync(templatePath, fullNewFolderPath, folderAndFileName, componentName, stringToReplace);
 
 	copyIndexFileAsync(templatePath, fullNewFolderPath, folderAndFileName, stringToReplace);
 	
 	copyComponentFileAsnyc(templateFile, fullNewFolderPath, folderAndFileName, componentName, stringToReplace);
 
-	console.log('-- Done --');
-	console.log('');
-	
 	return trueValue;
 };
 
