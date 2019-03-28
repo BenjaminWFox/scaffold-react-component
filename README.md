@@ -43,7 +43,7 @@ The default templates assumes you are using React, Material-UI, and PropTypes. I
 ### template-index.js
 
 ```
-import _ from './XXXXXX'
+import _ from './__StubComponentName__'
 
 export default _
 ```
@@ -66,7 +66,7 @@ const useStyles = makeStyles({
   },
 })
 
-class XXXXXX extends React.Component {
+class __StubComponentName__ extends React.Component {
   state = {
   }
 
@@ -79,10 +79,10 @@ class XXXXXX extends React.Component {
   }
 }
 
-XXXXXX.propTypes = {
+__StubComponentName__.propTypes = {
 }
 
-export default XXXXXX
+export default __StubComponentName__
 ```
 
 ### template-functional-component.js
@@ -97,7 +97,7 @@ const useStyles = makeStyles({
   },
 })
 
-const XXXXXX = function XXXXXX({ }) {
+const __StubComponentName__ = function __StubComponentName__({ }) {
   const classes = useStyles()
 
   return (
@@ -105,8 +105,8 @@ const XXXXXX = function XXXXXX({ }) {
   )
 }
 
-XXXXXX.propTypes = {
+__StubComponentName__.propTypes = {
 }
 
-export default XXXXXX
+export default __StubComponentName__
 ```
