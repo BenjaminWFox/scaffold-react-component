@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
+import getSplitComponentName from './split-regex'
 
 const TEST_FILE_NAME = 'template-component-test.js';
 const FUNCTIONAL_COMPONENT_FILE_NAME = 'template-functional-component.js';
@@ -100,7 +101,7 @@ const scaffoldNewComponent = async function scaffoldNewComponent(componentType: 
 		return falseValue;
 	}
 
-	const folderAndFileName = componentName.split(/(?=[A-Z0-9])/).join("-").toLowerCase();
+	const folderAndFileName = getSplitComponentName(componentName); // componentName.split(/(?=[A-Z0-9])/).join("-").toLowerCase();
 	const fullNewFolderPath = `${newFolderBase}/${folderAndFileName}`;
 	
 	// vscode.window.showInformationMessage('Scaffolding component...');
