@@ -2,6 +2,8 @@
 
 ## 0.1.0
 
+### Regex/matching updates
+
 - Moved regex matching methods to separate file
 
 - Improved regex matching:
@@ -15,6 +17,12 @@
 - Removed default test
 
 - Used a bigger version number
+
+### FS operation updates
+
+- Prevent overwriting files that already exist
+
+- Don't attempt to create folder that already exists
 
 ## 0.0.3
 

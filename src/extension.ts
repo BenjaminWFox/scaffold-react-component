@@ -38,15 +38,16 @@ const makeDirSync = function makeDirSync(dir: string): boolean {
 };
 
 const readReplaceWriteFileAsync = function readReplaceWriteFileAsync(templateFile: string, newFile: string, componentName: string, stringToReplace: string): void {
+	if (!fs.existsSync(newFile)) {
 		fs.readFile(templateFile, 'utf8', function (err, data) {
-	
+
 			if (err) {
 				console.log('Could not read file:', err);
 				return false;
 			}
-	
+
 			var result = data.replace(new RegExp(stringToReplace, 'g'), componentName);
-	
+
 				fs.writeFile(newFile, result, 'utf8', function (err) {
 					if (err) {
 						console.log('Could not write file:', err);
@@ -54,6 +55,10 @@ const readReplaceWriteFileAsync = function readReplaceWriteFileAsync(templateFil
 					}
 				});
 		});
+	}
+	else {
+		console.log('File creation aborted', newFile, 'already exists.');
+	}
 };
 
 const copyTestFileAsync = function copyTestFileAsync(templatePath: string, copyPath: string, fileName: string, componentName: string, stringToReplace: string): void {	
@@ -110,7 +115,12 @@ const scaffoldNewComponent = async function scaffoldNewComponent(componentType: 
 	console.log('With file name:', folderAndFileName);
 	console.log('In folder:', fullNewFolderPath);
 
-	makeDirSync(fullNewFolderPath);
+	if (!fs.existsSync(fullNewFolderPath)) {
+		makeDirSync(fullNewFolderPath);
+	}
+	else {
+		console.log('Just FYI, this directory already exists.');
+	}
 
 	copyTestFileAsync(templatePath, fullNewFolderPath, folderAndFileName, componentName, stringToReplace);
 
