@@ -1,5 +1,21 @@
 # Change Log
 
+## 1.0.0
+
+- Fixed missing template files in published package
+- Updated default templates to be less opinionated
+- Now skips file creation if file is empty (or missing)
+- Added default content to template-component-test.js (Jest syntax)
+- Updated README
+
+## 0.3.0
+
+- Revert attempted update to template files.
+
+## 0.2.0
+
+- Attempt to update template files.
+
 ## 0.1.0
 
 ### Regex/matching updates

@@ -1,6 +1,6 @@
 # Scaffold React Component
 
-This VSCode extension is an oppinionated way to scaffold new React components.
+This VSCode extension adds two context menu items in the Explorer view to quickly create React components.
 
 ## To use
 
@@ -9,7 +9,7 @@ After installation, right-clicking on a folder in the Explorer View will give yo
 - New Class Component
 - New Functional Component
 
-It expects that the component name is PascalCase
+Selecting either option brings up an input where you can enter your component name. It expects that the component name is PascalCase:
 
 `MyNewComponent`
 
@@ -17,11 +17,11 @@ For the folder & files, the PascalCase name will be transformed to lowercase wit
 
 `my-new-component`
 
-The folder/file structure is
+The folder/file structure created by default is:
 
 ```
 my-new-component            // parent folder
-- index.js                  // only for cleaner imports of the component elsewhere
+- index.js                  // for cleaner imports of the component elsewhere
 - my-new-component.js       // component
 - my-new-component.test.js  // for component tests
 ```
@@ -34,11 +34,11 @@ This extension has one setting for specifying a path to custom templates:
 
 Use `__StubComponentName__` in your custom templates in place of the intended component name. 
 
-In a custom template folder you may omit the index & test files if desired.
+In a custom template folder you may omit (or leave empty) the index & test files, if desired.
 
 ## Template File Naming & Structure
 
-The default templates assumes you are using React, Material-UI, and PropTypes. It also assumes a bit about your ESLint setup.
+The default templates assumes you are using React and PropTypes, and testing with Jest.
 
 ### template-index.js
 
@@ -51,36 +51,35 @@ export default _
 ### template-component-test.js
 
 ```
-[ empty ]
+import __StubComponentName__ from '.'
+
+describe('The __StubComponentName__ component', () => {
+  // TODO: Implement a real test
+  it('Should import successfully', () => {    
+    console.warn('TODO: Implement a real test', __StubComponentName__)
+
+    expect(__StubComponentName__).toBeDefined()
+  })
+})
 ```
 
 ### template-class-component.js
 
 ```
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types'
 
-const useStyles = makeStyles({
-  root: {
-  },
-})
-
 class __StubComponentName__ extends React.Component {
-  state = {
-  }
+  state = {}
 
   render() {
-    const classes = useStyles()
-  
     return (
-      <div className={classes.root}></div>
+      <div>content</div>
     )
   }
 }
 
-__StubComponentName__.propTypes = {
-}
+__StubComponentName__.propTypes = {}
 
 export default __StubComponentName__
 ```
@@ -89,24 +88,15 @@ export default __StubComponentName__
 
 ```
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types'
 
-const useStyles = makeStyles({
-  root: {
-  },
-})
-
-const __StubComponentName__ = function __StubComponentName__({ }) {
-  const classes = useStyles()
-
+const __StubComponentName__ = function __StubComponentName__() {
   return (
-    <div className={classes.root}></div>
+    <div>content</div>
   )
 }
 
-__StubComponentName__.propTypes = {
-}
+__StubComponentName__.propTypes = {}
 
 export default __StubComponentName__
 ```
