@@ -46,7 +46,8 @@ const readReplaceWriteFileAsync = function readReplaceWriteFileAsync(templateFil
 				return false;
 			}
 
-			var result = data.replace(new RegExp(stringToReplace, 'g'), componentName);
+			if (data) {
+				var result = data.replace(new RegExp(stringToReplace, 'g'), componentName);
 
 				fs.writeFile(newFile, result, 'utf8', function (err) {
 					if (err) {
@@ -54,6 +55,10 @@ const readReplaceWriteFileAsync = function readReplaceWriteFileAsync(templateFil
 						return false;
 					}
 				});
+			}
+			else {
+				console.log(`Skipping creation of ${newFile}. File is empty.`)
+			}
 		});
 	}
 	else {

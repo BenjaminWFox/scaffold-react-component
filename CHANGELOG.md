@@ -2,7 +2,11 @@
 
 ## 1.0.0
 
-- Updated template to be less opinionated.
+- Fixed missing template files in published package
+- Updated default templates to be less opinionated
+- Now skips file creation if file is empty (or missing)
+- Added default content to template-component-test.js (Jest syntax)
+- Updated README
 
 ## 0.3.0
 
