@@ -2,7 +2,7 @@
 	"name": "scaffoldreactcomponent",
 	"displayName": "ScaffoldReactComponent",
 	"description": "",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"publisher": "bfcode",
 	"repository": "https://github.com/BenjaminWFox/scaffold-react-component",
 	"engines": {

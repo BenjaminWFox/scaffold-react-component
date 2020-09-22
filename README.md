@@ -58,29 +58,19 @@ export default _
 
 ```
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types'
 
-const useStyles = makeStyles({
-  root: {
-  },
-})
-
 class __StubComponentName__ extends React.Component {
-  state = {
-  }
+  state = {}
 
   render() {
-    const classes = useStyles()
-  
     return (
-      <div className={classes.root}></div>
+      <div>content</div>
     )
   }
 }
 
-__StubComponentName__.propTypes = {
-}
+__StubComponentName__.propTypes = {}
 
 export default __StubComponentName__
 ```
@@ -89,24 +79,15 @@ export default __StubComponentName__
 
 ```
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
 import PropTypes from 'prop-types'
 
-const useStyles = makeStyles({
-  root: {
-  },
-})
-
-const __StubComponentName__ = function __StubComponentName__({ }) {
-  const classes = useStyles()
-
+const __StubComponentName__ = function __StubComponentName__() {
   return (
-    <div className={classes.root}></div>
+    <div>content</div>
   )
 }
 
-__StubComponentName__.propTypes = {
-}
+__StubComponentName__.propTypes = {}
 
 export default __StubComponentName__
 ```
