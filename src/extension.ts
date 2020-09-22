@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import getSplitComponentName from './split-regex'
+import getSplitComponentName from './split-regex';
 
 const TEST_FILE_NAME = 'template-component-test.js';
 const FUNCTIONAL_COMPONENT_FILE_NAME = 'template-functional-component.js';
@@ -86,8 +86,8 @@ const scaffoldNewComponent = async function scaffoldNewComponent(componentType: 
 	const config = getConfig();
 	const templatePath = config.pathToTemplates === '' ? path.resolve(__dirname) : path.resolve(config.pathToTemplates);
 	const stringToReplace = STUB_COMPONENT_NAME;
-	const falseValue =  new Promise(()=>false);
-	const trueValue = new Promise(()=>true);
+	const falseValue =  new Promise<any>(()=>false);
+	const trueValue = new Promise<any>(()=>true);
 	const isClassComponent = componentType === 'class';
 	const newFolderBase = folderObject.fsPath || undefined;
 	const templateFile = path.resolve(templatePath, isClassComponent ? CLASS_COMPONENT_FILE_NAME : FUNCTIONAL_COMPONENT_FILE_NAME);

@@ -1,5 +1,17 @@
 # Change Log
 
+## 1.0.0
+
+- Updated template to be less opinionated.
+
+## 0.3.0
+
+- Revert attempted update to template files.
+
+## 0.2.0
+
+- Attempt to update template files.
+
 ## 0.1.0
 
 ### Regex/matching updates
