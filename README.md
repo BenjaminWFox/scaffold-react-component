@@ -100,3 +100,7 @@ __StubComponentName__.propTypes = {}
 
 export default __StubComponentName__
 ```
+
+#### Mentions
+
+Icon crane graphic by [lavarmsg](https://www.vecteezy.com/members/lavarmsg) at Vecteezy.
