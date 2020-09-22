@@ -2,9 +2,14 @@
 	"name": "scaffoldreactcomponent",
 	"displayName": "Scaffold React Component",
 	"description": "Simple context menu addition for quick Functional & Class component creation with customizable templates.",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"publisher": "bfcode",
-	"repository": "https://github.com/BenjaminWFox/scaffold-react-component",
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/BenjaminWFox/scaffold-react-component"
+	},
+	"homepage": "https://github.com/BenjaminWFox/scaffold-react-component/blob/master/README.md",
+	"icon": "images/icon.png",
 	"engines": {
 		"vscode": "^1.32.0"
 	},
