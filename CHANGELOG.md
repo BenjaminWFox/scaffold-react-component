@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.2
+
+- Removes empty trailing spaces in test template
+
 ## 1.0.0
 
 - Fixed missing template files in published package
